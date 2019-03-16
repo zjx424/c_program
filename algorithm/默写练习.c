@@ -1,35 +1,47 @@
 #include <stdio.h>
 
-void insert(int arr[],int n)
+void quick_sort(int arr[],int left,int right)
 {
-	int key=arr[n];
-	int i=n;
-	while (arr[i-1]>key)
+	int i=left,j=right;
+	int pivot=arr[(left+right)/2];
+	while(i<=j)
 	{
-		arr[i]=arr[i-1];
-		i--;
-		if (i==0)
+		while(arr[i]<pivot)
 		{
-			break;
+			i++;
+		}
+		while(arr[j]>pivot)
+		{
+			j--;
+		}
+		if (i<=j)
+		{
+			int temp=arr[i];
+			arr[i]=arr[j];
+			arr[j]=temp;
+			i++;
+			j--;
 		}
 	}
-	arr[i]=key;
-}
-
-void InsertionSort(int arr[],int n)
-{
-	for (int i = 1; i < n; ++i)
+	if (i<right)
 	{
-		insert(arr,i);
+		quick_sort(arr,i,right);
+	}
+	if (j>left)
+	{
+		quick_sort(arr,left,j);
 	}
 }
+
+
 
 int main(int argc, char const *argv[])
 {
-	int arr[]={4,2,8,6,7,3,9,1,5};
-	int n=9;
-	InsertionSort(arr,n);
-	for (int i = 0; i < 9; ++i)
+	int arr[]={4,7,2,1,8,5,6,9,3,10,12,13,11};
+	int i,length;
+	length=sizeof(arr)/sizeof(arr[0]);
+	quick_sort(arr,0,length-1);
+	for (int i = 0; i < length; ++i)
 	{
 		printf("%d\n",arr[i] );
 	}
